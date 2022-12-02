@@ -18,7 +18,7 @@ public class FacultyController {
         return facultyService.addNewFaculty(faculty);
     }
 
-    @GetMapping({"id"})
+    @GetMapping("{id}")
     public Faculty readFaculty(@PathVariable long id) {
         return facultyService.getFacultyById(id);
     }
@@ -28,7 +28,7 @@ public class FacultyController {
         return facultyService.updateFaculty(faculty);
     }
 
-    @DeleteMapping({"id"})
+    @DeleteMapping("{id}")
     public Faculty deleteFaculty(@PathVariable long id) {
         return facultyService.deleteFaculty(id);
     }

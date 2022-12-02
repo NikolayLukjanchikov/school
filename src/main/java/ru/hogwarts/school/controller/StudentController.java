@@ -20,7 +20,7 @@ public class StudentController {
         return studentService.addNew(student);
     }
 
-    @GetMapping({"id"})
+    @GetMapping("{id}")
     public Student readFaculty(@PathVariable long id) {
         return studentService.getStudentById(id);
     }
@@ -30,13 +30,13 @@ public class StudentController {
         return studentService.updateStudent(student);
     }
 
-    @DeleteMapping({"id"})
+    @DeleteMapping("{id}")
     public Student deleteFaculty(@PathVariable long id) {
         return studentService.deleteStudent(id);
     }
 
-    @GetMapping({"age"})
-    public Collection<Student> getAllStudentsByAge(@PathVariable int age) {
+    @GetMapping("age")
+    public Collection<Student> getAllStudentsByAge(@RequestParam int age) {
         return studentService.getStudentsByAge(age);
     }
 

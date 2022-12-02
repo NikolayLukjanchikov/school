@@ -14,8 +14,8 @@ public class StudentService {
     public Student addNew(Student student) {
         student.setId(++lastId);
         students.put(lastId, student);
-        return students.get(lastId);
-        //return student;
+        //return students.get(lastId);
+        return student;
     }
 
     public Student getStudentById(long id) {
@@ -32,9 +32,11 @@ public class StudentService {
     }
 
     public Collection<Student> getStudentsByAge(int age) {
-        List<Student> studentsByAge = (List<Student>) students;
-        return studentsByAge.stream()
-                .sorted(Comparator.comparing(Student::getAge)).toList();
+        return students.values().stream()
+                .sorted(Comparator.comparing(Student::getAge))
+                .filter(student -> student.getAge() == age)
+                .collect(Collectors.toUnmodifiableList());
+
     }
 
 }
