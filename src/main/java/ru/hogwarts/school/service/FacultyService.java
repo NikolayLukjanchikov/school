@@ -39,4 +39,8 @@ public class FacultyService {
                 .collect(Collectors.toUnmodifiableList());
 
     }
+
+    public Collection<Faculty> getFacultyByColorOrName(String value) {
+        return facultyRepository.findFacultiesByColorIgnoreCaseOrColorContainingIgnoreCase(value);
+    }
 }

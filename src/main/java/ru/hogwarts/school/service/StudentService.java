@@ -28,7 +28,7 @@ public class StudentService {
     }
 
     public void deleteStudent(long id) {
-         studentRepository.deleteById(id);
+        studentRepository.deleteById(id);
     }
 
     public Collection<Student> getStudentsByAge(int age) {
@@ -38,5 +38,10 @@ public class StudentService {
                 .collect(Collectors.toUnmodifiableList());
 
     }
+
+    public Collection<Student> getStudentsByAgeBetween(int min, int max) {
+        return studentRepository.findByAgeBetween(min, max);
+    }
+
 
 }

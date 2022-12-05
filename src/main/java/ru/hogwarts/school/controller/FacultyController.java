@@ -42,4 +42,9 @@ public class FacultyController {
         return facultyService.getFacultyByColor(color);
     }
 
+    @GetMapping("search")
+    public Collection<Faculty> getFacultyByColorOrName(String value) {
+        return facultyService.getFacultyByColorOrName(value);
+    }
+
 }
