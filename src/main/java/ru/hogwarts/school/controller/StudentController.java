@@ -6,6 +6,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("student")
@@ -43,7 +44,7 @@ public class StudentController {
     }
 
     @GetMapping("age/between")
-    Collection<Student> getAllStudentsByAgeBetween(@RequestParam int min, int max) {
+    public Collection<Student> getAllStudentsByAgeBetween(@RequestParam int min, int max) {
         return studentService.getStudentsByAgeBetween(min, max);
     }
 
