@@ -7,6 +7,7 @@ import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
 
+
 @RestController
 @RequestMapping("faculty")
 public class FacultyController {
@@ -43,8 +44,12 @@ public class FacultyController {
     }
 
     @GetMapping("search")
-    public Collection<Faculty> getFacultyByColorOrName(@RequestParam  String color, String name) {
+    public Collection<Faculty> getFacultyByColorOrName(@RequestParam String color, String name) {
         return facultyService.getFacultyByColorOrName(color, name);
     }
 
+    @GetMapping("by_student_id")
+    public Faculty getFacultyByStudentId(Long id) {
+        return facultyService.getFacultyByStudentId(id);
+    }
 }

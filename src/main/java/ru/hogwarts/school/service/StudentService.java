@@ -10,14 +10,18 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final FacultyService facultyService;
 
-    public StudentService(StudentRepository studentRepository) {
+
+    public StudentService(StudentRepository studentRepository, FacultyService facultyService) {
         this.studentRepository = studentRepository;
+        this.facultyService = facultyService;
     }
 
     public Student addNew(Student student) {
         return studentRepository.save(student);
     }
+
 
     public Student getStudentById(long id) {
         return studentRepository.findById(id).get();
@@ -43,7 +47,9 @@ public class StudentService {
         return studentRepository.findByAgeBetween(min, max);
     }
 
-
+    public List<Student> getStudentsByFacultyId(Long id) {
+        return studentRepository.findDistinctStudentByFaculty_Id(id);
+    }
 
 
 }

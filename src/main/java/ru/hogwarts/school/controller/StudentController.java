@@ -48,4 +48,8 @@ public class StudentController {
         return studentService.getStudentsByAgeBetween(min, max);
     }
 
+    @GetMapping("by_faculty_id")
+    public List<Student> getStudentsByFacultyId(@RequestParam Long id) {
+        return studentService.getStudentsByFacultyId(id);
+    }
 }
