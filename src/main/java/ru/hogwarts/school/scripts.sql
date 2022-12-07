@@ -3,4 +3,5 @@ select name from "student";
 select * from "student" where upper(name) LIKE upper('%о%');
 select * from "student" where age <= 13;
 select * from student order by age;
+select * from student where id=2;
 
