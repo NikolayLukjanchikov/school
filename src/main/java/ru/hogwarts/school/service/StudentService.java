@@ -10,12 +10,10 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
-    private final FacultyService facultyService;
 
-
-    public StudentService(StudentRepository studentRepository, FacultyService facultyService) {
+    public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
-        this.facultyService = facultyService;
+
     }
 
     public Student addNew(Student student) {
@@ -40,7 +38,6 @@ public class StudentService {
                 .sorted(Comparator.comparing(Student::getAge))
                 .filter(student -> student.getAge() == age)
                 .collect(Collectors.toUnmodifiableList());
-
     }
 
     public Collection<Student> getStudentsByAgeBetween(int min, int max) {
