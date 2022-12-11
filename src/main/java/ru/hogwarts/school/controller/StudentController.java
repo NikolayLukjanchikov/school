@@ -1,11 +1,13 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -28,19 +30,26 @@ public class StudentController {
     }
 
     @PutMapping
-    public Student updateStudent(@RequestBody Student student) {
-        return studentService.updateStudent(student);
+    public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
+        Student foundStudent = studentService.updateStudent(student);
+        if (foundStudent == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(foundStudent);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Student> deleteStudent(@PathVariable long id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("age")
-    public Collection<Student> getAllStudentsByAge(@RequestParam int age) {
-        return studentService.getStudentsByAge(age);
+    public ResponseEntity<Collection<Student>> getAllStudentsByAge(@RequestParam(required = false) int age) {
+        if (age > 0) {
+            return ResponseEntity.ok(studentService.getStudentsByAge(age));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
     }
 
     @GetMapping("age/between")

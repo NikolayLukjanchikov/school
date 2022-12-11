@@ -49,11 +49,7 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(Long studentId) {
-        Avatar av = avatarRepository.findAvatarByStudentId(studentId);
-        if (av == null) {
-            return new Avatar();
-        }
-        return av;
+        return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 
 
