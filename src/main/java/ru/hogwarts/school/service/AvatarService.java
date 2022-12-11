@@ -48,8 +48,12 @@ public class AvatarService {
         avatarRepository.save(avatar);
     }
 
-    private Avatar findAvatar(Long studentId) {
-        return avatarRepository.findDistinctAvatarByStudent_Id(studentId);
+    public Avatar findAvatar(Long studentId) {
+        Avatar av = avatarRepository.findAvatarByStudentId(studentId);
+        if (av == null) {
+            return new Avatar();
+        }
+        return av;
     }
 
 

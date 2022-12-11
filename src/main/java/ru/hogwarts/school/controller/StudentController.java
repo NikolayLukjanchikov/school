@@ -18,22 +18,22 @@ public class StudentController {
     }
 
     @PostMapping
-    public Student createFaculty(@RequestBody Student student) {
+    public Student createStudent(@RequestBody Student student) {
         return studentService.addNew(student);
     }
 
     @GetMapping("{id}")
-    public Student readFaculty(@PathVariable long id) {
+    public Student readStudent(@PathVariable long id) {
         return studentService.getStudentById(id);
     }
 
     @PutMapping
-    public Student updateFaculty(@RequestBody Student student) {
+    public Student updateStudent(@RequestBody Student student) {
         return studentService.updateStudent(student);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Student> deleteFaculty(@PathVariable long id) {
+    public ResponseEntity<Student> deleteStudent(@PathVariable long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
