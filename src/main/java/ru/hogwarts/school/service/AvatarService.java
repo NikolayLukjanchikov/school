@@ -52,6 +52,10 @@ public class AvatarService {
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
 
+    public void deleteAvatar(Long studentId) {
+        avatarRepository.delete(findAvatar(studentId));
+    }
+
 
     private String getExtensions(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);

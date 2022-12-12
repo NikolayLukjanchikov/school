@@ -9,4 +9,6 @@ public interface AvatarRepository extends JpaRepository<Avatar, Long> {
 
     Optional<Avatar> findByStudentId(Long id);
 
+    void deleteAvatarByStudentId(Long id);
+
 }

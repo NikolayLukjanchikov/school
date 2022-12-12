@@ -1,6 +1,5 @@
 package ru.hogwarts.school.controller;
 
-import io.swagger.v3.core.util.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +7,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
+
+import java.util.Collection;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,12 +30,9 @@ class StudentControllerTest {
         assertThat(studentService).isNotNull();
     }
 
-    @Test
-    void createStudent() {
-    }
 
     @Test
-    public void shouldReturnStudentWhenAdd() throws Exception {
+    public void createStudent() throws Exception {
         Student st1 = new Student();
         st1.setId(1L);
         st1.setName("TestStudent");
@@ -42,27 +40,50 @@ class StudentControllerTest {
         assertThat(this.restTemplate.postForObject("http://localhost:" + testPort + "/student", st1, Student.class))
                 .isNotNull();
     }
+
     @Test
-    void readStudent() {
+    void readStudent() throws Exception {
+        Student st1 = new Student();
+        st1.setId(1L);
+        st1.setName("TestStudent");
+        st1.setAge(16);
+        assertThat(this.restTemplate.getForObject("http://localhost:" + testPort + "/student/" + 1, Student.class))
+                .isEqualTo(st1);
     }
 
     @Test
-    void updateStudent() {
+    void updateStudent() throws Exception {
+        Student st1 = new Student();
+        st1.setId(1L);
+        st1.setName("TestStudent2");
+        st1.setAge(18);
+        assertThat(this.restTemplate.postForObject("http://localhost:" + testPort + "/student", st1, Student.class))
+                .isEqualTo(st1);
     }
 
     @Test
-    void deleteStudent() {
+    void deleteStudent() throws Exception {
+        this.restTemplate.delete("http://localhost:" + testPort + "/student/" + 1);
+        assertThat(this.restTemplate.getForObject("http://localhost:" + testPort + "/student/" + 1, Student.class))
+                .isNull();
+
     }
 
     @Test
     void getAllStudentsByAge() {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + testPort + "/student/age?age=15", Collection.class))
+                .isInstanceOf(Collection.class);
     }
 
     @Test
     void getAllStudentsByAgeBetween() {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + testPort + "/student/age/between?min=10&max=15", Collection.class))
+                .isInstanceOf(Collection.class);
     }
 
     @Test
     void getStudentsByFacultyId() {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + testPort + "/student/by_faculty_id?id=12", Collection.class))
+                .isInstanceOf(Collection.class);
     }
 }
