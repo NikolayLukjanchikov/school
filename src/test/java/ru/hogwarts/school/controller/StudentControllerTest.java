@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +12,6 @@ import ru.hogwarts.school.service.StudentService;
 import java.util.Collection;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class StudentControllerTest {
@@ -47,6 +47,8 @@ class StudentControllerTest {
         st1.setId(1L);
         st1.setName("TestStudent");
         st1.setAge(16);
+        studentService.updateStudent(st1);
+
         assertThat(this.restTemplate.getForObject("http://localhost:" + testPort + "/student/" + 1, Student.class))
                 .isEqualTo(st1);
     }
@@ -62,7 +64,7 @@ class StudentControllerTest {
     }
 
     @Test
-    void deleteStudent() throws Exception {
+    void deleteStudent() throws Exception {  //данный тест удаляет студента, который используется в первых тестах, что делает невозможным повторное ис-ие тестов update
         this.restTemplate.delete("http://localhost:" + testPort + "/student/" + 1);
         assertThat(this.restTemplate.getForObject("http://localhost:" + testPort + "/student/" + 1, Student.class))
                 .isNull();
