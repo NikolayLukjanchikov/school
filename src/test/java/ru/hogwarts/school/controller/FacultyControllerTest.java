@@ -4,6 +4,7 @@ import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -11,8 +12,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.FacultyRepository;
+import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.FacultyService;
+import ru.hogwarts.school.service.StudentService;
 
 import java.util.Optional;
 
@@ -24,20 +28,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 class FacultyControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private FacultyRepository facultyRepository;
-
+    @MockBean
+    private AvatarService avatarService;
+    @MockBean
+    private StudentService studentService;
     @SpyBean
     private FacultyService facultyService;
-
     @InjectMocks
     private FacultyController facultyController;
 
-//    @Test
+    //    @Test
 //    void createFaculty() {
 //    }
     @Test
@@ -47,6 +51,7 @@ class FacultyControllerTest {
         String color = "Сизый";
 
         JSONObject facultyObject = new JSONObject();
+        facultyObject.put("id", 111L);
         facultyObject.put("name", name);
         facultyObject.put("color", color);
 
