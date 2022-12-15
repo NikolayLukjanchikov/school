@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 @RequestMapping("student")
@@ -53,4 +54,10 @@ public class AvatarController {
             is.transferTo(os);
         }
     }
+
+    @GetMapping("/avatars")
+    public List<Avatar> findByPagination(@RequestParam int page, @RequestParam int size) {
+        return avatarService.findByPagination(page, size);
+    }
+
 }
