@@ -128,5 +128,4 @@ class FacultyControllerTest {
                 .andExpect(status().isOk());
     }
 
-
 }

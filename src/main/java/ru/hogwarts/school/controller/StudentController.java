@@ -66,4 +66,9 @@ public class StudentController {
     public List<Student> getStudentsByFacultyId(@RequestParam Long id) {
         return studentService.getStudentsByFacultyId(id);
     }
+
+    @GetMapping("/amount")
+    public int getStudentsAmount() {
+        return studentService.getStudentsAmount();
+    }
 }

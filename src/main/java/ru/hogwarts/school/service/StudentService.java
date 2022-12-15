@@ -47,6 +47,9 @@ public class StudentService {
     public List<Student> getStudentsByFacultyId(Long id) {
         return studentRepository.findDistinctStudentByFaculty_Id(id);
     }
+    public int getStudentsAmount() {
+        return studentRepository.getStudentsAmount();
+    }
 
 
 }
