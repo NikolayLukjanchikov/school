@@ -8,6 +8,7 @@ import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
 import java.util.List;
+
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
     Collection<Student> findByAgeBetween(int min, int max);
@@ -16,5 +17,11 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query(value = "SELECT COUNT (*) FROM student", nativeQuery = true)
     int getStudentsAmount();
+
+    @Query(value = "SELECT AVG(age) FROM student", nativeQuery = true)
+    int getStudentsAverageAge();
+
+    @Query(value = "SELECT * FROM student ORDER BY id desc LIMIT 5" , nativeQuery = true)
+    List<Student> getLastFiveStudent();
 
 }
