@@ -49,11 +49,12 @@ public class StudentService {
                 .filter(student -> student.getAge() == age)
                 .collect(Collectors.toUnmodifiableList());
     }
+
     public Collection<String> getStudentsByFirstLetter(String letter) {
         logger.info("Was invoked method for get students by first letter {}", letter);
         return studentRepository.findAll().stream()
                 .sorted(Comparator.comparing(Student::getName))
-                .filter(student -> student.getName().startsWith(letter))
+                .filter(student -> student.getName().toLowerCase().startsWith(letter.toLowerCase()))
                 .map(student -> student.getName().toUpperCase())
                 .toList();
     }
@@ -77,6 +78,13 @@ public class StudentService {
     public int getStudentsAverageAge() {
         logger.info("Was invoked method to get avg students age");
         return studentRepository.getStudentsAverageAge();
+    }
+
+    public int getStudentsAverageAgeByStream() {
+        logger.info("Was invoked method to get avgStream students age");
+        return (int) studentRepository.findAll().stream()
+                .mapToInt(a -> a.getAge())
+                .average().orElse(0);
     }
 
     public List<Student> getLastFiveStudent() {

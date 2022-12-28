@@ -80,9 +80,13 @@ public class StudentController {
         return studentService.getStudentsAmount();
     }
 
-    @GetMapping("/average-age")
+    @GetMapping("age/average")
     public int getStudentsAverageAge() {
         return studentService.getStudentsAverageAge();
+    }
+    @GetMapping("age/averageByStream")
+    public int getStudentsAverageAgeByStream() {
+        return studentService.getStudentsAverageAgeByStream();
     }
 
     @GetMapping("/last-five-students")
