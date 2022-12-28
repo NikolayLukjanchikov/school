@@ -58,4 +58,12 @@ public class FacultyService {
         logger.info("Was invoked method for find faculty by student id");
         return facultyRepository.findDistinctFacultyByStudents_Id(id);
     }
+
+    public String getLongestFacultyName() {
+        logger.info("Was invoked method to get Longest Faculty Name");
+        return facultyRepository.findAll().stream().
+                map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElse(null);
+    }
 }
