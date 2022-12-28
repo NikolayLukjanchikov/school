@@ -16,6 +16,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -77,4 +78,13 @@ public class AvatarService {
         var pageRequest = PageRequest.of(page, size);
         return avatarRepository.findAll(pageRequest).getContent();
     }
+
+    public int sum() { //без стрима(хоть послед, хоть параллельного) расчёт идёт гораздо быстрее, проверял на значениях 1_000_000_000
+        int sum = 0 ;
+        for (int i = 1; i < 1_000_001 ; i++) {
+            sum += i;
+        }
+        return sum;
+    }
 }
+

@@ -60,4 +60,9 @@ public class AvatarController {
         return avatarService.findByPagination(page, size);
     }
 
+    @GetMapping("/hw45step4")
+    public int sum() {
+        return avatarService.sum();
+    }
+
 }
