@@ -57,6 +57,14 @@ public class StudentController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @GetMapping("byletter")
+    public ResponseEntity<Collection<String>> getAllStudentsByFirstLetter(@RequestParam(required = false) String letter) {
+        if (!letter.isEmpty()) {
+            return ResponseEntity.ok(studentService.getStudentsByFirstLetter(letter));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
+    }
+
     @GetMapping("age/between")
     public Collection<Student> getAllStudentsByAgeBetween(@RequestParam int min, int max) {
         return studentService.getStudentsByAgeBetween(min, max);

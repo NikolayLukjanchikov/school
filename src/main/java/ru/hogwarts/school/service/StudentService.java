@@ -9,6 +9,7 @@ import ru.hogwarts.school.repository.StudentRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
@@ -47,6 +48,14 @@ public class StudentService {
                 .sorted(Comparator.comparing(Student::getAge))
                 .filter(student -> student.getAge() == age)
                 .collect(Collectors.toUnmodifiableList());
+    }
+    public Collection<String> getStudentsByFirstLetter(String letter) {
+        logger.info("Was invoked method for get students by first letter {}", letter);
+        return studentRepository.findAll().stream()
+                .sorted(Comparator.comparing(Student::getName))
+                .filter(student -> student.getName().startsWith(letter))
+                .map(student -> student.getName().toUpperCase())
+                .toList();
     }
 
     public Collection<Student> getStudentsByAgeBetween(int min, int max) {
