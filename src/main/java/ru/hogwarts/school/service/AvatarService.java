@@ -31,7 +31,7 @@ public class AvatarService {
         this.studentRepository = studentRepository;
     }
 
-    Logger logger = LoggerFactory.getLogger(Avatar.class);
+    private final Logger logger = LoggerFactory.getLogger(AvatarService.class);
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
         logger.info("Was invoked method for upload avatar");

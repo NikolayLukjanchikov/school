@@ -18,7 +18,7 @@ public class StudentService {
 
     }
 
-    Logger logger = LoggerFactory.getLogger(Student.class);
+    private final Logger logger = LoggerFactory.getLogger(StudentService.class);
 
     public Student addNew(Student student) {
         logger.info("Was invoked method for add new student");
