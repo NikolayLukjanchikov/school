@@ -99,4 +99,9 @@ public class StudentController {
     public void getAllStudentInDiffThreads() {
         studentService.printAllStudentInDiffThreads();
     }
+
+    @GetMapping("allsync")
+    public void getAllStudentInSyncThreads() {
+        studentService.printStudSync();
+    }
 }

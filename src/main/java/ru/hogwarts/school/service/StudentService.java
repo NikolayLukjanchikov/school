@@ -20,7 +20,8 @@ public class StudentService {
     }
 
     private final Logger logger = LoggerFactory.getLogger(StudentService.class);
-    private static int print_count = 0;
+    private Integer print_count = 0;
+    private final Object flag = new Object();
 
     public Student addNew(Student student) {
         logger.info("Was invoked method for add new student");
@@ -93,41 +94,66 @@ public class StudentService {
         return studentRepository.getLastFiveStudent();
     }
 
-
     public void printAllStudentInDiffThreads() {
         logger.info("Was invoked method to find all students threads");
-        print_count = 0;
         List<Student> students = studentRepository.findAll().stream().toList();
         System.out.println(students);
         System.out.println("теперь в потоках");
 
-        printStud(students.get(0));
-        printStud(students.get(1));
+        System.out.println(students.get(0));
+        System.out.println(students.get(1));
         new Thread(() -> {
-            printStud(students.get(2));
+            System.out.println(students.get(2));
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            printStud(students.get(3));
+            System.out.println(students.get(3));
         }).start();
         new Thread(() -> {
-            printStud(students.get(4));
+            System.out.println(students.get(4));
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            printStud(students.get(5));
+            System.out.println(students.get(5));
         }).start();
-
     }
 
-    private void printStud(Student student) {
-        System.out.println(student);
-        ;
-
+    public void printStudSync() {
+        logger.info("Was invoked method to find all students threads Sync");
+        print_count = 0;
+        List<Student> students = studentRepository.findAll().stream().toList();
+        System.out.println(students);
+        System.out.println("теперь в потоках");
+        printSync(students.get(print_count));
+        printSync(students.get(print_count));
+        new Thread(() -> {
+            printSync(students.get(print_count));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            printSync(students.get(print_count));
+        }).start();
+        new Thread(() -> {
+            printSync(students.get(print_count));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            printSync(students.get(print_count));
+        }).start();
     }
 
+    private void printSync(Student student) {
+        synchronized (flag) {
+            System.out.println(student);
+            print_count++;
+        }
+    }
 }
