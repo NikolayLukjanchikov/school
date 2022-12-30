@@ -20,6 +20,7 @@ public class StudentService {
     }
 
     private final Logger logger = LoggerFactory.getLogger(StudentService.class);
+    private static int print_count = 0;
 
     public Student addNew(Student student) {
         logger.info("Was invoked method for add new student");
@@ -83,13 +84,50 @@ public class StudentService {
     public int getStudentsAverageAgeByStream() {
         logger.info("Was invoked method to get avgStream students age");
         return (int) studentRepository.findAll().stream()
-                .mapToInt(a -> a.getAge())
+                .mapToInt(Student::getAge)
                 .average().orElse(0);
     }
 
     public List<Student> getLastFiveStudent() {
         logger.info("Was invoked method to find last five students");
         return studentRepository.getLastFiveStudent();
+    }
+
+
+    public void printAllStudentInDiffThreads() {
+        logger.info("Was invoked method to find all students threads");
+        print_count = 0;
+        List<Student> students = studentRepository.findAll().stream().toList();
+        System.out.println(students);
+        System.out.println("теперь в потоках");
+
+        printStud(students.get(0));
+        printStud(students.get(1));
+        new Thread(() -> {
+            printStud(students.get(2));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            printStud(students.get(3));
+        }).start();
+        new Thread(() -> {
+            printStud(students.get(4));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            printStud(students.get(5));
+        }).start();
+
+    }
+
+    private void printStud(Student student) {
+        System.out.println(student);
+        ;
+
     }
 
 }

@@ -84,6 +84,7 @@ public class StudentController {
     public int getStudentsAverageAge() {
         return studentService.getStudentsAverageAge();
     }
+
     @GetMapping("age/averageByStream")
     public int getStudentsAverageAgeByStream() {
         return studentService.getStudentsAverageAgeByStream();
@@ -92,5 +93,10 @@ public class StudentController {
     @GetMapping("/last-five-students")
     public List<Student> getLastFiveStudent() {
         return studentService.getLastFiveStudent();
+    }
+
+    @GetMapping("all")
+    public void getAllStudentInDiffThreads() {
+        studentService.printAllStudentInDiffThreads();
     }
 }
