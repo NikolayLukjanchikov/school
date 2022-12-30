@@ -85,6 +85,7 @@ public class AvatarService {
             sum += i;
         }
         return sum;
+//если нужно именно по стриму, то параллелим его после лимита        int sum = Stream.iterate(1, a -> a +1) .limit(1_000_000).parallel() .reduce(0, (a, b) -> a + b );
     }
 }
 
